@@ -14,7 +14,6 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-image: url("background.png");
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
@@ -39,6 +38,7 @@ img {
 }
 .main-navbar {
     float: right;
+    justify-content: center;
 }
 .topnav a {
   float: left;
@@ -495,12 +495,14 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     white-space: normal;
+    overflow-wrap: break-word;
   }
   .hero-text {
-    width: unset;
+    width: 100%;
     font-size: 1.5rem;
+
   }
   .hero-img img {
     border-radius: 10px;
