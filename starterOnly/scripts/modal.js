@@ -55,7 +55,17 @@ let testValidity = false ;
 
 for (let i=0; i < variableFormArray.length; i++) {
   let parameterTest = variableFormArray[i].value;
-  let 
+  if (i < 2) {
+    if (parameterTest.length) {
+      parameterTest.trim().length >= 2;
+    return parameterTest = true;
+    }
+  break
+  }
+  if (i = 2) {
+    
+  }
+
 
   if(parameterTestValid) {
   }
