@@ -1,120 +1,77 @@
-// Const for checking the validity of form
-const regExEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-const regExBirthdate = /(19\d\d|20[0-3])(-\d\d){2}/;
-
 // DOM Elements
-const $registerForm = document.querySelector('.registration-form');
-const modalBg = document.querySelector('.bground');
+const registerForm = document.querySelector('.registration-form');
 
 // Functions to check the validity of datas'form
+const getValueId = (id) => document.getElementById(id).value;
+const getErrorMsg = (classError) => document.querySelector(classError);
 
-// Checking firstname
-function checkFirstN() {
-  let firstInput = document.getElementById('first').value;
-  let $firstnameErrorMessage = document.querySelector('.firstnameErrorMessage');
-  let firstNameValid = firstInput.trim().length >= 2;
-  if (firstNameValid) {
-    $firstnameErrorMessage.classList.add('hidden');
-  } else {
-    $firstnameErrorMessage.classList.remove('hidden');
+// function to check string length
+function checkString (input, error, extra) {
+  if (input.trim().length < extra) {
+    error.classList.remove('hidden');
+    return false
   }
-  return firstNameValid;
-}
+  return true
+};
 
-// Checking lastname
-function checkLastN() {
-  let lastInput = document.getElementById('last').value;
-  let $lastnameErrorMessage = document.querySelector('.lastnameErrorMessage');
-  let lastNameValid = lastInput.trim().length >= 2;
-  if (lastNameValid) {
-    $lastnameErrorMessage.classList.add('hidden');
-  } else {
-    $lastnameErrorMessage.classList.remove('hidden');
+// function to check email validity
+function checkEmail (input, error, regex) {
+  if (regex.test(input) === false) {
+    error.classList.remove('hidden');
+    return false
   }
-  return lastNameValid;
-}
+  return true
+};
 
-// Checking Email
-function checkEmail() {
-  let emailInput = document.getElementById('email').value;
-  let $emailErrorMessage = document.querySelector('.emailErrorMessage');
-  let emailValid = regExEmail.test(emailInput);
-  if (emailValid) {
-    $emailErrorMessage.classList.add('hidden');
-  } else {
-    $emailErrorMessage.classList.remove('hidden');
+// function to check age
+function checkBirthdate (input, error, regex) {
+  if (regex.test(input) === false) {
+    error.classList.remove('hidden');
+    return false
   }
-  return emailValid;
-}
+  return true
+};
 
-// Checking Age
-function checkBirthdate() {
-  let birthdateInput = document.getElementById('birthdate').value;
-  let $birthdateErrorMessage = document.querySelector('.birthdateErrorMessage');
-  let birthdateValid = regExBirthdate.test(birthdateInput);
-  if (birthdateValid) {
-    $birthdateErrorMessage.classList.add('hidden');
-  } else {
-    $birthdateErrorMessage.classList.remove('hidden');
-  }
-  return birthdateValid;
-}
-
-// Checking number of tournaments
-function checkQuantity() {
-  let quantityInput = document.getElementById('quantity').value;
-  let $quantityErrorMessage = document.querySelector('.quantityErrorMessage');
-  let quantityValid = quantityInput.length > 0;
-  if (quantityValid) {
-    $quantityErrorMessage.classList.add('hidden');
-  } else {
-    $quantityErrorMessage.classList.remove('hidden');
-  }
-  return quantityValid;
-}
-
-
-// Checking cities of tournaments
-function checkCities() {
-  let $citiesRadio = document.querySelectorAll('#citychoices .checkbox-input');
-  let $citiesErrorMessage = document.querySelector('.citiesErrorMessage');
-  let citiesValid = false;
-  for (let i = 0; i < $citiesRadio.length; i++) {
-    if ($citiesRadio[i].checked) {
-      $citiesErrorMessage.classList.add('hidden');
-      citiesValid = true;
-      break
-    } else {
-      $citiesErrorMessage.classList.remove('hidden');
+// function to check cities of tournaments
+function checkCities (input, error) {
+  for (let i = 0; i < input.length; i++) {
+    if (input[i].checked === false) {
+      error.classList.remove('hidden');
+      return false
     }
   }
-  return citiesValid
-}
+};
 
-// Checking terms and conditions
-function checkTerms() {
-  let termsInput = document.getElementById('terms-checkbox');
-  let $termsErrorMessage = document.querySelector('.termsErrorMessage');
-  let termsValid = termsInput.checked;
-  if (termsValid) {
-    $termsErrorMessage.classList.add('hidden');
-  } else {
-    $termsErrorMessage.classList.remove('hidden');
+// function to check terms and conditions
+function checkTerms (input, error) {
+  if (input.checked === false) {
+    error.classList.remove('hidden');
+    return false
   }
-  return termsValid
-}
+  return true
+};
+
+const inputObject = [
+  { input: getValueId('first'), functiontest: checkString(), error: getErrorMsg('.firstnameErrorMessage'), extra: 2 },
+  { input: getValueId('last'), functiontest: checkString(), error: getErrorMsg('.lastnameErrorMessage'), extra: 2 },
+  { input: getValueId('email'), functiontest: checkEmail(), error: getErrorMsg('.emailErrorMessage'), regex: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ },
+  { input: getValueId('birthdate'), functiontest: checkBirthdate(), error: getErrorMsg('.birthdateErrorMessage'), regex: /(19\d\d|20[0-3])(-\d\d){2}/ },
+  { input: getValueId('quantity'), functiontest: checkString(), error: getErrorMsg('.quantityErrorMessage'), extra: 0 }, // Tournaments category
+  { input: document.querySelectorAll('#citychoices .checkbox-input').value, functiontest: checkCities(), error: getErrorMsg('.citiesErrorMessage') },
+  { input: getValueId('checkbox1'), functiontest: checkTerms(), error: getErrorMsg('.termsErrorMessage') }]
+
 
 // Checking if all inputs are valid
-const integralFormValid = () => checkFirstN() && checkLastN() && checkEmail() && checkBirthdate() && checkQuantity() && checkCities() && checkTerms()
+const integralFormValid = () => checkString() && checkEmail() && checkBirthdate() && checkCities() && checkTerms()
 
 // Events for submiting the form
-$registerForm.addEventListener('submit', function (event) {
+registerForm.addEventListener('submit', function (event) {
   event.preventDefault()
   // if integralFormValid is true
-  if (integralFormValid()) {
+  if (integralFormValid() === true) {
     modalBg.style.display = 'none';
     // Call and show the notification window to confirm
     showNotifValid();
-    $registerForm.reset();
+    registerForm.reset();
   }
 });
