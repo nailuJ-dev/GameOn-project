@@ -5,6 +5,15 @@ const registerForm = document.querySelector('.registration-form');
 const getValueId = (id) => document.getElementById(id).value;
 const getErrorMsg = (classError) => document.querySelector(classError);
 
+const inputObject = [
+  { input: getValueId('first'), functiontest: checkString(), error: getErrorMsg('.firstnameErrorMessage'), extra: 2 },
+  { input: getValueId('last'), functiontest: checkString(), error: getErrorMsg('.lastnameErrorMessage'), extra: 2 },
+  { input: getValueId('email'), functiontest: checkEmail(), error: getErrorMsg('.emailErrorMessage'), regex: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ },
+  { input: getValueId('birthdate'), functiontest: checkBirthdate(), error: getErrorMsg('.birthdateErrorMessage'), regex: /(19\d\d|20[0-3])(-\d\d){2}/ },
+  { input: getValueId('quantity'), functiontest: checkString(), error: getErrorMsg('.quantityErrorMessage'), extra: 0 }, // Tournaments category
+  { input: document.querySelectorAll('#citychoices .checkbox-input').value, functiontest: checkCities(), error: getErrorMsg('.citiesErrorMessage') },
+  { input: getValueId('checkbox1'), functiontest: checkTerms(), error: getErrorMsg('.termsErrorMessage') }]
+
 // function to check string length
 function checkString (input, error, extra) {
   if (input.trim().length < extra) {
@@ -51,25 +60,16 @@ function checkTerms (input, error) {
   return true
 };
 
-const inputObject = [
-  { input: getValueId('first'), functiontest: checkString(), error: getErrorMsg('.firstnameErrorMessage'), extra: 2 },
-  { input: getValueId('last'), functiontest: checkString(), error: getErrorMsg('.lastnameErrorMessage'), extra: 2 },
-  { input: getValueId('email'), functiontest: checkEmail(), error: getErrorMsg('.emailErrorMessage'), regex: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ },
-  { input: getValueId('birthdate'), functiontest: checkBirthdate(), error: getErrorMsg('.birthdateErrorMessage'), regex: /(19\d\d|20[0-3])(-\d\d){2}/ },
-  { input: getValueId('quantity'), functiontest: checkString(), error: getErrorMsg('.quantityErrorMessage'), extra: 0 }, // Tournaments category
-  { input: document.querySelectorAll('#citychoices .checkbox-input').value, functiontest: checkCities(), error: getErrorMsg('.citiesErrorMessage') },
-  { input: getValueId('checkbox1'), functiontest: checkTerms(), error: getErrorMsg('.termsErrorMessage') }]
-
-
 // Checking if all inputs are valid
 const integralFormValid = () => checkString() && checkEmail() && checkBirthdate() && checkCities() && checkTerms()
+
+// Or const integralFormValid = Object.values(inputObject).filter(functiontest === true)
 
 // Events for submiting the form
 registerForm.addEventListener('submit', function (event) {
   event.preventDefault()
   // if integralFormValid is true
   if (integralFormValid() === true) {
-    modalBg.style.display = 'none';
     // Call and show the notification window to confirm
     showNotifValid();
     registerForm.reset();
