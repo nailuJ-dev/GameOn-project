@@ -6,13 +6,13 @@ const getValueId = (id) => document.getElementById(id).value;
 const getErrorMsg = (classError) => document.querySelector(classError);
 
 const inputObject = [
-  { input: getValueId('first'), functiontest: checkString(), error: getErrorMsg('.firstnameErrorMessage'), extra: 2 },
-  { input: getValueId('last'), functiontest: checkString(), error: getErrorMsg('.lastnameErrorMessage'), extra: 2 },
-  { input: getValueId('email'), functiontest: checkEmail(), error: getErrorMsg('.emailErrorMessage'), regex: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ },
-  { input: getValueId('birthdate'), functiontest: checkBirthdate(), error: getErrorMsg('.birthdateErrorMessage'), regex: /(19\d\d|20[0-3])(-\d\d){2}/ },
-  { input: getValueId('quantity'), functiontest: checkString(), error: getErrorMsg('.quantityErrorMessage'), extra: 0 }, // Tournaments category
-  { input: document.querySelectorAll('#citychoices .checkbox-input').value, functiontest: checkCities(), error: getErrorMsg('.citiesErrorMessage') },
-  { input: getValueId('checkbox1'), functiontest: checkTerms(), error: getErrorMsg('.termsErrorMessage') }]
+  { input: document.getElementById('first'), functionTest: () => checkString(), error: document.querySelector('.firstnameErrorMessage'), extra: 2 },
+  { input: document.getElementById('last'), functionTest: () => checkString(), error: document.querySelector('.lastnameErrorMessage'), extra: 2 },
+  { input: document.getElementById('email'), functionTest: () => checkEmail(), error: document.querySelector('.emailErrorMessage'), extra: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ },
+  { input: document.getElementById('birthdate'), functionTest: () => checkBirthdate(), error: document.querySelector('.birthdateErrorMessage'), extra: /(19\d\d|20[0-3])(-\d\d){2}/ },
+  { input: document.getElementById('quantity'), functionTest: () => checkString(), error: document.querySelector('.quantityErrorMessage'), extra: 0 }, // Tournaments category
+  { input: document.querySelectorAll('#citychoices .checkbox-input'), functionTest: () => checkCities(), error: document.querySelector('.citiesErrorMessage') },
+  { input: document.getElementById('checkbox1'), functionTest: () => checkTerms(), error: document.querySelector('.termsErrorMessage') }]
 
 // function to check string length
 function checkString (input, error, extra) {
@@ -24,8 +24,8 @@ function checkString (input, error, extra) {
 };
 
 // function to check email validity
-function checkEmail (input, error, regex) {
-  if (regex.test(input) === false) {
+function checkEmail (input, error, extra) {
+  if (extra.test(input) === false) {
     error.classList.remove('hidden');
     return false
   }
@@ -33,8 +33,8 @@ function checkEmail (input, error, regex) {
 };
 
 // function to check age
-function checkBirthdate (input, error, regex) {
-  if (regex.test(input) === false) {
+function checkBirthdate (input, error, extra) {
+  if (extra.test(input) === false) {
     error.classList.remove('hidden');
     return false
   }
@@ -61,17 +61,35 @@ function checkTerms (input, error) {
 };
 
 // Checking if all inputs are valid
-const integralFormValid = () => checkString() && checkEmail() && checkBirthdate() && checkCities() && checkTerms()
+        // const integralFormValid = () => checkString() && checkEmail() && checkBirthdate() && checkCities() && checkTerms()
+// inputObject.forEach (if item etc.)
+
+/* let integralFormValid = false
+
+inputObject.forEach(function (items) {
+  if (items.functionTest === true) {
+    integralFormValid = true
+    console.log('fais chier')
+  } else {
+    console.log('merdebis');
+  }
+});
+*/
 
 // Or const integralFormValid = Object.values(inputObject).filter(functiontest === true)
 
 // Events for submiting the form
 registerForm.addEventListener('submit', function (event) {
   event.preventDefault()
+  console.log('merde');
   // if integralFormValid is true
-  if (integralFormValid() === true) {
-    // Call and show the notification window to confirm
-    showNotifValid();
-    registerForm.reset();
-  }
+  inputObject.forEach(function (items) {
+    if (items.functionTest(items.input, items.error, items.extra) === true) {
+      console.log('fais chier')
+      showNotifValid();
+      registerForm.reset();
+    } else {
+      console.log('merdebis');
+    }
+  });
 });
