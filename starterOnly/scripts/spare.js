@@ -1,3 +1,6 @@
+// DOM Elements
+const registerForm = document.querySelector('.registration-form');
+
 // To copy & paste if minimalist check doesn't go well
 
 function checkFirstName () {
@@ -96,4 +99,37 @@ function checkTerms () {
   return termsValid
 }
 
-const integralFormValid = () => checkFirstName && checkLastName() && checkEmail() && checkBirthdate() && checkTournament && checkCities() && checkTerms();
+function fieldFormControl () {
+  checkFirstName()
+  checkLastName()
+  checkEmail()
+  checkBirthdate()
+  checkTournament()
+  checkCities()
+  checkTerms()
+}
+
+function integralFormValid () {
+  if (checkFirstName() === true &&
+    checkLastName() === true &&
+    checkEmail() === true &&
+    checkBirthdate() === true &&
+    checkTournament() === true &&
+    checkCities() === true &&
+    checkTerms() === true) {
+    return true;
+  }
+  return false;
+}
+
+// Events for submiting the form
+registerForm.addEventListener('submit', function (event) {
+  event.preventDefault()
+  console.log('shit');
+  if (integralFormValid() === true) {
+    showNotifValid();
+    registerForm.reset();
+  } else {
+    fieldFormControl();
+  }
+});

@@ -17,16 +17,15 @@ const inputObject = [
 
 // function to check string length
 function checkString (input, error, extra) {
-  if (input > extra && input !== '') {
-    return true
-  } else {
+  if (input < extra && input === '') {
     error.classList.remove('hidden');
     return false
   }
+  return true
 };
 
 // function to check email validity
-function checkEmail (input, error, extra) {
+function checkEmail (input, error, extra = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/) {
   if (extra.test(input) === false) {
     error.classList.remove('hidden');
     return false
@@ -70,9 +69,9 @@ function checkTerms (input, error) {
 inputObject.forEach(function (items) {
   if (items.functionTest === true) {
     integralFormValid = true
-    console.log('fais chier')
+    console.log('fuck it')
   } else {
-    console.log('merdebis');
+    console.log('fuck off');
   }
 });
 */
