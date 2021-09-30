@@ -86,8 +86,12 @@ registerForm.addEventListener('submit', function (event) {
   inputObject.forEach(function (items) {
     if (items.functionTest(items.input, items.error, items.extra) === true) {
       console.log('fuck it')
-      showNotifValid();
-      registerForm.reset();
+      let functionCount = 1;        // Count to avoid a validation submit with one lap for the each loop
+      const functionTotal = functionCount++;
+      if (functionTotal === 7) {
+        showNotifValid();
+        registerForm.reset();
+      }
     } else {
       console.log('fuck off');
     }
