@@ -17,7 +17,7 @@ const thxBg = document.querySelector('.bground-thx');
 modalBtn.forEach((btn) => btn.addEventListener('click', launchModal));
 
 // launch modal form
-function launchModal() {
+function launchModal () {
   modalBg.style.display = 'block'
 }
 
