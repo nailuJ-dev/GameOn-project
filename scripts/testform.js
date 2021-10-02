@@ -73,7 +73,7 @@ registerForm.addEventListener('submit', function (event) {
       if (functionCount === inputObject.length) {
         showNotifValid()
         registerForm.reset()
-      }
-    }
-  })
-})
+      };
+    };
+  });
+});

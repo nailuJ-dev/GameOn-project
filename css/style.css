@@ -41,7 +41,6 @@ img {
 }
 .main-navbar {
     float: right;
-    justify-content: center;
 }
 .topnav a {
   float: left;
@@ -492,7 +491,9 @@ footer {
 }
 
 @media screen and (max-width: 540px) {
-  .topnav a {display: none;}
+  .topnav a {
+    display: none;
+  }
   .topnav a.icon {
     height: 2rem;
     justify-content: center;
@@ -505,14 +506,14 @@ footer {
   .topnav {
     flex-wrap: wrap;
   }
-  
+
   .topnav a {
     display: none;
   }
 
   .topnav a.icon {
     float: right;
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
   }
@@ -533,6 +534,7 @@ footer {
     display: block;
     text-align: left;
   }
+
   .hero-content {
     min-width: 100px;
   }

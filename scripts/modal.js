@@ -1,11 +1,3 @@
-function editNav() {
-  let x = document.getElementById('myTopnav');
-  if (x.className === 'topnav') {
-    x.className += ' responsive';
-  } else {
-    x.className = 'topnav';
-  }
-}
 
 // DOM Elements
 const modalBg = document.querySelector('.bground');
@@ -32,3 +24,13 @@ document.querySelector('.buttonThx').addEventListener('click', function (closeMo
   modalBg.style.display = 'none';
   thxBg.style.display = 'none';
 });
+
+// Responsive - Edit nav
+document.getElementById('icon').onclick = function editNav() {
+  let x = document.getElementById('myTopnav');
+  if (x.className === 'topnav') {
+    x.className += ' responsive';
+  } else {
+    x.className = 'topnav';
+  }
+}
