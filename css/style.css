@@ -494,6 +494,7 @@ footer {
   .topnav a {
     display: none;
   }
+  
   .topnav a.icon {
     justify-content: center;
     margin: 0.5rem 0rem;
