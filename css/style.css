@@ -495,10 +495,8 @@ footer {
     display: none;
   }
   .topnav a.icon {
-    height: 2rem;
     justify-content: center;
     margin: 0.5rem 0rem;
-    width: 2rem;
   }
 }
 
@@ -525,7 +523,6 @@ footer {
   .topnav.responsive .icon {
     position: absolute;
     right: 10px;
-    top: 0px;
     display: flex;
     justify-content: center;
   }
