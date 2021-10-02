@@ -494,7 +494,7 @@ footer {
   .topnav a {
     display: none;
   }
-  
+
   .topnav a.icon {
     justify-content: center;
     margin: 0.5rem 0rem;
@@ -513,8 +513,6 @@ footer {
   .topnav a.icon {
     float: right;
     display: block;
-    align-items: center;
-    justify-content: center;
   }
 
   .topnav.responsive {
