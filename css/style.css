@@ -524,6 +524,7 @@ footer {
     right: 10px;
     display: flex;
     justify-content: center;
+    top: 0px;
   }
   .topnav.responsive a {
     float: none;
