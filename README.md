@@ -1,5 +1,13 @@
-# Projet GameOn
-1. Forkez ce repo ;
-2. Il est conseillé d'utiliser VisualStudio Code et vous pouvez utiliser Docker, mais ce n'est pas obligatoire ;
-3. Il n'y a aucune dépendance ;
-4. Vous ne devez utiliser que du CSS personnalisé et du JavaScript pur, sans jQuery, Bootstrap ou autre librairie.
+# GameOn Project
+Third project of the Openclassroom web developer course. The main goal is to create a landing page which integrate a register form. It's realized with HTML, CSS and JavaScript.
+
+## Goals
+
+## Functionalities of the website
+
+## Notes on the project's implementation
+  - Technologies deployed : HTML / CSS / JavaScript
+  - Tools : Visual Studio Code with Live Server / Emmet / Autoprefixer / Github and its terminal Gitbash
+  - Compatibility with W3C Validator is checked
+  - Compatibility with Google Chrome and Firefox is required
+  - The code has been versioned on GIT and deployed on GITHUB at the following address
