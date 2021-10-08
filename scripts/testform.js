@@ -3,7 +3,8 @@ const registerForm = document.querySelector('.registration-form')
 
 // function to check string length
 function checkString (input, error, extra) {
-  if (input.length > extra) {
+  const regExName = /^[a-zA-Z '.-]*$/
+  if (input.length >= extra && (regExName.test(input))) {
     return true
   }
   error.classList.remove('hidden')
@@ -22,9 +23,10 @@ function checkEmail (input, error, extra) {
 };
 
 // function to check age
-function checkBirthdate (input, error, extra) {
+function checkBirthdate (input, error) {
   if (input) {
-    if (extra.test(input)) {
+    const regExBirth = /^\d{2}\/\d{2}\/\d{4}$/
+    if (regExBirth.test(input)) {
       return true
     }
   }
@@ -55,10 +57,10 @@ function checkTerms (input, error) {
 registerForm.addEventListener('submit', function (event) {
   event.preventDefault()
   const inputObject = [
-    { input: document.getElementById('first').value, functionTest: checkString, error: document.querySelector('.firstnameErrorMessage'), extra: 1 },
-    { input: document.getElementById('last').value, functionTest: checkString, error: document.querySelector('.lastnameErrorMessage'), extra: 1 },
+    { input: document.getElementById('first').value, functionTest: checkString, error: document.querySelector('.firstnameErrorMessage'), extra: 2 },
+    { input: document.getElementById('last').value, functionTest: checkString, error: document.querySelector('.lastnameErrorMessage'), extra: 2 },
     { input: document.getElementById('email').value, functionTest: checkEmail, error: document.querySelector('.emailErrorMessage'), extra: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ },
-    { input: document.getElementById('birthdate').value, functionTest: checkString, error: document.querySelector('.birthdateErrorMessage'), extra: 9 },
+    { input: document.getElementById('birthdate').value, functionTest: checkBirthdate, error: document.querySelector('.birthdateErrorMessage'), extra: /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/ },
     { input: document.getElementById('quantity').value, functionTest: checkString, error: document.querySelector('.quantityErrorMessage'), extra: 0 }, // Tournaments category
     { input: document.querySelectorAll('#citychoices .checkbox-input'), functionTest: checkCities, error: document.querySelector('.citiesErrorMessage') },
     { input: document.getElementById('checkbox1'), functionTest: checkTerms, error: document.querySelector('.termsErrorMessage') }
