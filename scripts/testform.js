@@ -23,12 +23,21 @@ function checkEmail (input, error, extra) {
 };
 
 // function to check age
-function checkBirthdate (input, error) {
+function checkBirthdate (input, error, extra) {
   if (input) {
-    const regExBirth = /^\d{2}\/\d{2}\/\d{4}$/
-    if (regExBirth.test(input)) {
+    console.log(input)
+    if (extra.test(input)) {
       return true
     }
+  }
+  error.classList.remove('hidden')
+  return false
+};
+
+// function to check number of tournaments
+function checkNumber (input, error, extra) {
+  if (input.length > extra) {
+    return true
   }
   error.classList.remove('hidden')
   return false
@@ -60,8 +69,8 @@ registerForm.addEventListener('submit', function (event) {
     { input: document.getElementById('first').value, functionTest: checkString, error: document.querySelector('.firstnameErrorMessage'), extra: 2 },
     { input: document.getElementById('last').value, functionTest: checkString, error: document.querySelector('.lastnameErrorMessage'), extra: 2 },
     { input: document.getElementById('email').value, functionTest: checkEmail, error: document.querySelector('.emailErrorMessage'), extra: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ },
-    { input: document.getElementById('birthdate').value, functionTest: checkBirthdate, error: document.querySelector('.birthdateErrorMessage'), extra: /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/ },
-    { input: document.getElementById('quantity').value, functionTest: checkString, error: document.querySelector('.quantityErrorMessage'), extra: 0 }, // Tournaments category
+    { input: document.getElementById('birthdate').value, functionTest: checkBirthdate, error: document.querySelector('.birthdateErrorMessage'), extra: /^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/ },
+    { input: document.getElementById('quantity').value, functionTest: checkNumber, error: document.querySelector('.quantityErrorMessage'), extra: 0 }, // Tournaments category
     { input: document.querySelectorAll('#citychoices .checkbox-input'), functionTest: checkCities, error: document.querySelector('.citiesErrorMessage') },
     { input: document.getElementById('checkbox1'), functionTest: checkTerms, error: document.querySelector('.termsErrorMessage') }
   ]
