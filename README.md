@@ -1,5 +1,5 @@
 # GameOn Project
-Third project of the Openclassroom web developer course. The main goal is to create a landing page which integrate a register form. It's realized with HTML, CSS and JavaScript.
+The main goal is to create a landing page which integrate a register form. It's realized with HTML, CSS and JavaScript.
 
 ## Goals
 
